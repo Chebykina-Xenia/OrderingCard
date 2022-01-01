@@ -18,7 +18,7 @@ public class OderingCardTest {
     @BeforeAll
     public static void setUpAll(){
         WebDriverManager.chromedriver().setup();
-       // System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
     }
 
     @BeforeEach
@@ -29,8 +29,6 @@ public class OderingCardTest {
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
     }
-
-
 
     @AfterEach
     public void tearDown(){
