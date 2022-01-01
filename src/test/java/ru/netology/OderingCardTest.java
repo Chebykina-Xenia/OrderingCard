@@ -1,11 +1,11 @@
 package ru.netology;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -13,23 +13,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OderingCardTest {
 
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("--disable-dev-shm-usage");
-    options.addArguments("--no-sandbox");
-    options.addArguments("--headless");
-
-    private WebDriver driver = new ChromeDriver(options);
+    private ChromeDriver driver;
 
     @BeforeAll
     public static void setUpAll(){
-
-        System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
+       // System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
     }
 
     @BeforeEach
     public void setUp(){
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
     }
+
+
 
     @AfterEach
     public void tearDown(){
