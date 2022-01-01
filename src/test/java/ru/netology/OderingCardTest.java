@@ -45,7 +45,7 @@ public class OderingCardTest {
         driver.findElement(By.cssSelector(".checkbox__box")).click();
         driver.findElement(By.cssSelector("button")).click();
 
-        String actualText = driver.findElement(By.className("order-success")).getText().trim();
+        String actualText = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText().trim();
 
         String expectedText = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
 
