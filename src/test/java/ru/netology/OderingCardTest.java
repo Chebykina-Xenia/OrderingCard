@@ -16,13 +16,13 @@ public class OderingCardTest {
     private ChromeDriver driver;
 
     @BeforeAll
-    public static void setUpAll(){
+    public static void setUpAll() {
         WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
     }
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
@@ -31,13 +31,13 @@ public class OderingCardTest {
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
         driver = null;
     }
 
     @Test
-    public void shouldSendForm(){
+    public void shouldSendForm() {
         driver.get("http://localhost:9999/");
 
         driver.findElement(By.cssSelector("[type='text']")).sendKeys("Иванов Иван");
