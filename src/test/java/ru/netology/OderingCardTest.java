@@ -58,7 +58,6 @@ public class OderingCardTest {
         driver.findElement(By.cssSelector("button")).click();
         driver.findElement(By.cssSelector(".input_invalid")).findElement(By.cssSelector(".input__sub"));
 
-        // String actualText = (driver.findElement(By.cssSelector(".input_invalid")).findElement(By.cssSelector(".input__sub"))).getText().trim();
         String actualText = (driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim());
         String expectedText = "Поле обязательно для заполнения";
 
@@ -84,7 +83,6 @@ public class OderingCardTest {
         driver.findElement(By.cssSelector(".checkbox__box")).click();
         driver.findElement(By.cssSelector("button")).click();
 
-        //String actualText = (driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector(".input__sub"))).getText().trim();
         String actualText = (driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim());
         String expectedText = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
 
@@ -99,7 +97,6 @@ public class OderingCardTest {
         driver.findElement(By.cssSelector(".checkbox__box")).click();
         driver.findElement(By.cssSelector("button")).click();
 
-        //String actualText = (driver.findElement(By.cssSelector("[data-test-id='phone']")).findElement(By.cssSelector(".input__sub"))).getText().trim();
         String actualText = (driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim());
         String expectedText = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
 
@@ -126,7 +123,6 @@ public class OderingCardTest {
         driver.findElement(By.cssSelector(".checkbox__box")).click();
         driver.findElement(By.cssSelector("button")).click();
 
-        //String actualText = (driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector(".input__sub"))).getText().trim();
         String actualText = (driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim());
         String expectedText = "Поле обязательно для заполнения";
 
