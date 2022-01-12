@@ -28,6 +28,7 @@ public class OderingCardTest {
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
+        driver.get("http://localhost:9999/");
     }
 
     @AfterEach
@@ -39,8 +40,6 @@ public class OderingCardTest {
     //Заполняем все поля. Заявка оформляется успешно
     @Test
     public void shouldSendForm() {
-        driver.get("http://localhost:9999/");
-
         driver.findElement(By.cssSelector("[type='text']")).sendKeys("Иванов Иван");
         driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+21236554523");
         driver.findElement(By.cssSelector(".checkbox__box")).click();
@@ -52,16 +51,15 @@ public class OderingCardTest {
         assertEquals(expectedText, actualText, "Текст сообщения не совпадает");
     }
 
-    //Заполняем тоолько поле фамилия и имя
+    //Заполняем только поле фамилия и имя
     @Test
     public void enterNameTest() {
-        driver.get("http://localhost:9999/");
-
         driver.findElement(By.cssSelector("[type='text']")).sendKeys("Иванов Иван");
         driver.findElement(By.cssSelector("button")).click();
         driver.findElement(By.cssSelector(".input_invalid")).findElement(By.cssSelector(".input__sub"));
 
-        String actualText = (driver.findElement(By.cssSelector(".input_invalid")).findElement(By.cssSelector(".input__sub"))).getText().trim();
+        // String actualText = (driver.findElement(By.cssSelector(".input_invalid")).findElement(By.cssSelector(".input__sub"))).getText().trim();
+        String actualText = (driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim());
         String expectedText = "Поле обязательно для заполнения";
 
         assertEquals(expectedText, actualText, "Текст сообщения не совпадает");
@@ -70,8 +68,6 @@ public class OderingCardTest {
     //Отправляем пустую форму
     @Test
     public void emptyFormTest() {
-        driver.get("http://localhost:9999/");
-
         driver.findElement(By.cssSelector("button")).click();
 
         String actualText = driver.findElement(By.cssSelector(".input__sub")).getText().trim();
@@ -83,14 +79,13 @@ public class OderingCardTest {
     //вводим неверное имя - на латынеце
     @Test
     public void enterNameLatTest() {
-        driver.get("http://localhost:9999/");
-
         driver.findElement(By.cssSelector("[type='text']")).sendKeys("Xenia");
         driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+21236554523");
         driver.findElement(By.cssSelector(".checkbox__box")).click();
         driver.findElement(By.cssSelector("button")).click();
 
-        String actualText = (driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector(".input__sub"))).getText().trim();
+        //String actualText = (driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector(".input__sub"))).getText().trim();
+        String actualText = (driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim());
         String expectedText = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
 
         assertEquals(expectedText, actualText, "Текст сообщения не совпадает");
@@ -99,14 +94,13 @@ public class OderingCardTest {
     //вводим телефон, где меньше 11 цифр
     @Test
     public void enterTelNot11Test() {
-        driver.get("http://localhost:9999/");
-
         driver.findElement(By.cssSelector("[type='text']")).sendKeys("Ксения Хомякова");
         driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+212365");
         driver.findElement(By.cssSelector(".checkbox__box")).click();
         driver.findElement(By.cssSelector("button")).click();
 
-        String actualText = (driver.findElement(By.cssSelector("[data-test-id='phone']")).findElement(By.cssSelector(".input__sub"))).getText().trim();
+        //String actualText = (driver.findElement(By.cssSelector("[data-test-id='phone']")).findElement(By.cssSelector(".input__sub"))).getText().trim();
+        String actualText = (driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim());
         String expectedText = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
 
         assertEquals(expectedText, actualText, "Текст сообщения не совпадает");
@@ -115,8 +109,6 @@ public class OderingCardTest {
     //вводим всё, кроме галочки согласия
     @Test
     public void enterNotCheckboxBoxTest() {
-        driver.get("http://localhost:9999/");
-
         driver.findElement(By.cssSelector("[type='text']")).sendKeys("Ксения Хомякова");
         driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+89565448789");
         driver.findElement(By.cssSelector("button")).click();
@@ -126,5 +118,20 @@ public class OderingCardTest {
 
         assertEquals(expected, actual, "Не совпадает");
     }
+
+    //не вводим имя, а  телефон вводим и ставим галочку
+    @Test
+    public void enterNotName() {
+        driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+21236554523");
+        driver.findElement(By.cssSelector(".checkbox__box")).click();
+        driver.findElement(By.cssSelector("button")).click();
+
+        //String actualText = (driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector(".input__sub"))).getText().trim();
+        String actualText = (driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim());
+        String expectedText = "Поле обязательно для заполнения";
+
+        assertEquals(expectedText, actualText, "Текст сообщения не совпадает");
+    }
+
 
 }
